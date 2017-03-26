@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>測驗首頁</title>
+ 	<link href="../../css/myStyles.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../css/heroic-features.css" rel="stylesheet">
+    
+    <link href="../../css/jquery.dataTables.min.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="../../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+</head>
+<style type="text/css">
+table, th, td {
+   border: 1px solid black;
+}
+
+table {
+    width: 90%;
+}
+
+</style>
+<body>
+	<div id="container">
+		<div id="titleDiv2">
+			<div class="wrapper"><p class="text">練習題施測結果</p></div>
+		</div>
+		<div id="contentDiv">
+			<table  style="margin:20px auto; font-size: 35px; text-align: center;">
+				<thead>
+					<tr>
+						<th style="text-align: center;"></th>
+						<th style="text-align: center;">練習題</th>
+						<th style="text-align: center;">正式測驗</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="50%">答對題數</td>
+						<td width="25%">20</td>
+						<td width="25%">20</td>
+					</tr>
+					<tr>
+						<td>答錯題數</td>
+						<td>10</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>答對平均反應時間</td>
+						<td>5.5</td>
+						<td>5.5</td>
+					</tr>
+				</tbody>			
+			</table>
+
+		</div>
+		<div id="btnDiv">
+			<div class="row">
+			  <div class="col-md-4"></div>
+			  <div class="col-md-4">
+					<div class="blue_bg_btn">
+						我瞭解了
+						<p class="red_border">✔</p>
+					</div>
+			  </div>
+			  <div class="col-md-4"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function(){
+    
+    $('body').keydown(function(event){
+    	    
+   	    if( event.which == 56 ) { // 數字8 關掉此頁面 跳到受試者資料管理
+   	    	console.log("按下8了");
+   	    	window.close();
+   	    }
+   	    
+   	    if( event.which == 27 ) { // ESC
+   	        console.log("跳出測驗");
+   	    	window.close();
+   	    }
+    });
+    
+});
+</script>
+</html>

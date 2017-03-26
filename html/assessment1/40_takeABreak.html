@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>測驗首頁</title>
+ 	<link href="../../css/myStyles.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../css/heroic-features.css" rel="stylesheet">
+    
+    <link href="../../css/jquery.dataTables.min.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="../../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="../../js/jquery.dataTables.min.js"></script>
+</head>
+<style type="text/css">
+
+</style>
+<body>
+	<div id="container">
+		<div id="materialDiv">
+			<div class="wrapper">
+				<p class="text" style="font-size: 60px;">
+					請休息片刻<br>正式測驗將於20秒後開始進行  <br>(找倒數計時圖案) + 背景圖
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function(){
+    
+    $('body').keydown(function(event){
+    	    
+   	    if( event.which == 56 ) { // 數字8 跳正式測驗
+   	    	console.log("按下8了");
+   	    	document.location.href="41_formal.html";
+   	    }
+   	    
+   	    if( event.which == 27 ) { // ESC
+   	        console.log("跳出測驗");
+   	    	window.close();
+   	    }
+    });
+    
+    // 20秒後 自動跳 正式測驗
+    setTimeout('document.location.href="41_formal.html"', 20000);
+});
+</script>
+</html>
