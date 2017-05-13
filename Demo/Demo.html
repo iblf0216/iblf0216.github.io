@@ -28,25 +28,23 @@
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-
-
 </head>
 <style type="text/css">
 	.panel-title-font-size {
-		font-size: 30px;
+		font-size: 25px;
 	}
 </style>
 <body>
 
-<h4>demo</h4>
+<h4>質性描述產生器  Demo</h4>
 
 <div class="row">
-	<div class="col-md-1">留白</div>
+	<div class="col-md-1"></div>
 	<div class="col-md-8">
 
 		<div class="panel panel-primary">
 		  <div class="panel-heading">
-		    <h3 class="panel-title" style="font-size: 30px;">幻聽、幻覺</h3>
+		    <h3 class="panel-title panel-title-font-size">幻聽、幻覺</h3>
 		  </div>
 		  <div class="panel-body">
 		  	<button type="button" class="btn btn-default btn-lg">有</button>
@@ -60,11 +58,11 @@
 		    <h3 class="panel-title panel-title-font-size">妄想</h3>
 		  </div>
 		  <div class="panel-body">
-		  	<button type="button" class="btn btn-default btn-lg">情愛型</button>
-		  	<button type="button" class="btn btn-default btn-lg">誇大型</button>
-		  	<button type="button" class="btn btn-default btn-lg">嫉妒型</button>
-		  	<button type="button" class="btn btn-default btn-lg">被害型</button>
-		  	<button type="button" class="btn btn-default btn-lg">身體型</button>
+		  	<button type="button" class="btn btn-default">情愛型</button>
+		  	<button type="button" class="btn btn-default">誇大型</button>
+		  	<button type="button" class="btn btn-default">嫉妒型</button>
+		  	<button type="button" class="btn btn-default">被害型</button>
+		  	<button type="button" class="btn btn-default">身體型</button>
 		  </div>
 		</div>
 
@@ -132,16 +130,56 @@
 <!-- 		<input style="width:20px;" type="checkbox" checked data-toggle="toggle" data-on="行為混亂缺乏條理" data-off="行為混亂缺乏條理" data-onstyle="success" data-offstyle="default"> -->
 		
 		<div class="form-group" style="width:90%">
-	      <label>具體描述</label><button id="generate" type="button" class="btn btn-warning btn-lg">產生說明</button>
-	      <textarea class="form-control" rows="8" value="111" style="border-color: blue;"></textarea>
+	      <label>具體描述</label>
+	      <button id="generate" type="button" class="btn btn-default">產生暫存描述</button>
+	      <button id="reset" type="button"  onclick="javascript:window.location.reload();" class="btn btn-default">重設</button>
+	      <button id ="sendBtn" type="button" style="float:right;" onclick="showModal()" class="btn btn-info hide" data-toggle="modal" data-target="#myModal">確定送出</button>
+	      <textarea id="final" class="form-control" rows="8" value="" style="border-color: blue;"></textarea>
+	      
 	    </div>
     </div>
 </div>
 
+
+<!-- Trigger the modal with a button -->
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">病歷簡述</h4>
+      </div>
+      <div class="modal-body" style="font-size: 30px;">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
 </body>
 <script>
-$(document).ready(function(){
 
+function showModal()
+{
+   //you can do anything with data, or pass more data to this function. i set this data to modal header for example
+   $("#myModal .modal-body").html($('#final').val())
+//    $("#myModal").modal();
+}
+
+$(document).ready(function(){
+	
 	$('.panel-primary').find('button').on('click', function() {
 		$( this ).toggleClass( "btn-default btn-primary" );
 	})
@@ -166,60 +204,266 @@ $(document).ready(function(){
 	
 	
 	$('#generate').on('click', function(){
-// 		var result = "個案具有";
+		var initStr = "個案具有嚴重的正性症狀，包含 : ";
 		
-		// 找出被點選之按鈕
+		var finalResult = '';
+		var resultArray = [];
 		
-		var selected = $('.panel-success').find('.btn-success');
-		console.log(selected);
+		// step 1  幻聽、幻覺
+		var selectedStep1 = $('.panel-primary').find('.btn-primary');
+		var selectedStep1Str = "";
 		
-		var selectedNum = selected.length;
-		console.log("個數:" + selectedNum);
-		
-		var combineStr = '';
-
-		if (selectedNum == 0) {
-			//donothing
-		} else if (selectedNum == 1) {
+		if (selectedStep1.length > 0) {
+			selectedStep1Str = "有患聽、幻覺。";
 			
-			selected.each(function( index ) {
-			  	console.log("combineStr1 : " + combineStr + $( this ).text() );
-			});
-		} else if (selectedNum == 2) {
-			
-			selected.each(function( index ) {
-				
-				combineStr +=$( this ).text() + "和";
-				  
-			});
-			console.log("combineStr2 : " + combineStr);
-		} else {
-			alert("999");
+// 			resultArray.push(selectedStep1Str);
 		}
+		//===========================================================
+
+			
+		// step 2 妄想
+		var selectedStep2 = $('.panel-success').find('.btn-success');
+		var selectedStep2Str = "";
 		
-		var obj = {};
-		var selectedArray = [];
-		selected.each(function( index ) {
-			  console.log( index + ": " + $( this ).text() );
-// 			  obj.ind = index;
-// 			  obj.text = $( this ).text();
+		var selectedStep2Num = selectedStep2.length;
+		
+		var selectedStep2Array = [];
+		selectedStep2.each(function( index ) {
+			console.log( index + ": " + $( this ).text() );
 			  
-			  selectedArray.push($( this ).text())
+			selectedStep2Array.push($( this ).text());
 		});
 		
-		console.log("selectedArray");
-		console.log(selectedArray);
+		console.log("selectedStep2Array");
+		console.log(selectedStep2Array);
 		
-		
-		console.log((Math.random() > 0.5) ? "以及" : "與")
-		
-		if(selectedNum == 2) {
-			console.log(selectedArray[0].split("型").join("妄想") 
-					+ ((Math.random() > 0.5) ? "以及" : "與") 
-					+ selectedArray[1].split("型").join("妄想"));
+		if (selectedStep2Num < 0) {
+			//donothing
+		} else if (selectedStep2Num == 1) {
+			
+			selectedStep2Str = selectedStep2Array[0].split("型").join("妄想");
+			
+		} else if (selectedStep2Num == 2) {
+			
+			selectedStep2Str = selectedStep2Array[0].split("型").join("妄想") 
+			+ ((Math.random() > 0.5) ? "以及" : "與") 
+			+ selectedStep2Array[1].split("型").join("妄想")
+
+		} else if (selectedStep2Num > 2) {
+			
+			for (i = 0; i < selectedStep2Array.length; i++) {
+				console.log("i = " + i);
+				if (i < selectedStep2Array.length -2) {
+					selectedStep2Str += selectedStep2Array[i].split("型").join("妄想") + "、";
+				} else if (i == selectedStep2Array.length -2) {
+					selectedStep2Str += selectedStep2Array[i].split("型").join("妄想") + ((Math.random() > 0.5) ? "以及" : "與");
+				} else {
+					selectedStep2Str += selectedStep2Array[i].split("型").join("妄想");
+				}
+				
+			}
 			
 		}
 		
+		console.log("step2 : " + selectedStep2Str);
+		
+		if (selectedStep2Num > 0) {
+			resultArray.push(selectedStep2Str);
+		}
+		
+		//===========================================================
+
+			
+		// step 3 思考型式障礙/語言
+		var selectedStep3 = $('.panel-danger').find('.btn-danger');
+		var selectedStep3Str = "";
+		
+		var selectedStep3Num = selectedStep3.length;
+		
+		var selectedStep3Array = [];
+		selectedStep3.each(function( index ) {
+			console.log( index + ": " + $( this ).text() );
+			  
+			selectedStep3Array.push($( this ).text());
+		});
+		
+		console.log("selectedStep3Array");
+		console.log(selectedStep3Array);
+		
+		if (selectedStep3Num < 0) {
+			//donothing
+		} else if (selectedStep3Num == 1) {
+			
+			selectedStep3Str = selectedStep3Array[0];
+			
+		} else if (selectedStep3Num == 2) {
+			
+			selectedStep3Str = selectedStep3Array[0] 
+			+ ((Math.random() > 0.5) ? "以及" : "與") 
+			+ selectedStep3Array[1];
+
+		} else if (selectedStep3Num > 2) {
+			
+			for (i = 0; i < selectedStep3Array.length; i++) {
+				console.log("i = " + i);
+				if (i < selectedStep3Array.length -2) {
+					selectedStep3Str += selectedStep3Array[i] + "、";
+				} else if (i == selectedStep3Array.length -2) {
+					selectedStep3Str += selectedStep3Array[i] + ((Math.random() > 0.5) ? "以及" : "與");
+				} else {
+					selectedStep3Str += selectedStep3Array[i];
+				}
+				
+			}
+			
+		}
+		
+		console.log("step3 : " + selectedStep3Str);
+		
+		
+		if (selectedStep3Num > 0) {
+			resultArray.push("思考/語言障礙（" + selectedStep3Str + "）");
+		}
+		
+		//===========================================================
+			
+			
+		// step 4 情緒障礙
+		var selectedStep4 = $('.panel-info').find('.btn-info');
+		var selectedStep4Str = "";
+		
+		var selectedStep4Num = selectedStep4.length;
+		
+		var selectedStep4Array = [];
+		selectedStep4.each(function( index ) {
+			console.log( index + ": " + $( this ).text() );
+			  
+			selectedStep4Array.push($( this ).text());
+		});
+		
+		console.log("selectedStep4Array");
+		console.log(selectedStep4Array);
+		
+		if (selectedStep4Num < 0) {
+			//donothing
+		} else if (selectedStep4Num == 1) {
+			
+			selectedStep4Str = selectedStep4Array[0];
+			
+		} else if (selectedStep4Num == 2) {
+			
+			selectedStep4Str = selectedStep4Array[0] 
+			+ ((Math.random() > 0.5) ? "以及" : "與") 
+			+ selectedStep4Array[1];
+
+		} else if (selectedStep4Num > 2) {
+			
+			for (i = 0; i < selectedStep4Array.length; i++) {
+				console.log("i = " + i);
+				if (i < selectedStep4Array.length -2) {
+					selectedStep4Str += selectedStep4Array[i] + "、";
+				} else if (i == selectedStep4Array.length -2) {
+					selectedStep4Str += selectedStep4Array[i] + ((Math.random() > 0.5) ? "以及" : "與");
+				} else {
+					selectedStep4Str += selectedStep4Array[i];
+				}
+				
+			}
+			
+		}
+		
+		console.log("step4 : " + selectedStep4Str);		
+		
+		
+		if (selectedStep4Num > 0) {
+			resultArray.push("情緒障礙（" + selectedStep4Str + "）");
+		}
+		
+		//===========================================================
+			
+			
+		// step 5 行為障礙
+		var selectedStep5 = $('.panel-warning').find('.btn-warning');
+		var selectedStep5Str = "";
+		
+		var selectedStep5Num = selectedStep5.length;
+		
+		var selectedStep5Array = [];
+		selectedStep5.each(function( index ) {
+			console.log( index + ": " + $( this ).text() );
+			  
+			selectedStep5Array.push($( this ).text());
+		});
+		
+		console.log("selectedStep5Array");
+		console.log(selectedStep5Array);
+		
+		if (selectedStep5Num < 0) {
+			//donothing
+		} else if (selectedStep5Num == 1) {
+			
+			selectedStep5Str = selectedStep5Array[0];
+			
+		} else if (selectedStep5Num == 2) {
+			
+			selectedStep5Str = selectedStep5Array[0] 
+			+ ((Math.random() > 0.5) ? "以及" : "與") 
+			+ selectedStep5Array[1];
+
+		} else if (selectedStep5Num > 2) {
+			
+			for (i = 0; i < selectedStep5Array.length; i++) {
+				console.log("i = " + i);
+				if (i < selectedStep5Array.length -2) {
+					selectedStep5Str += selectedStep5Array[i] + "、";
+				} else if (i == selectedStep5Array.length -2) {
+					selectedStep5Str += selectedStep5Array[i] + ((Math.random() > 0.5) ? "以及" : "與");
+				} else {
+					selectedStep5Str += selectedStep5Array[i];
+				}
+				
+			}
+			
+		}
+		
+		console.log("step5 : " + selectedStep5Str);		
+		
+		if (selectedStep5Num > 0) {
+			resultArray.push("行為障礙（" + selectedStep5Str + "）");
+		}
+	
+		
+		//===========================================================
+		
+			
+		// 產生結果
+		var resultArrayNum = resultArray.length;
+		if (resultArrayNum == 0) {
+			finalResult = '';
+		} else if (resultArrayNum == 1) {
+			finalResult = resultArray[0];
+		} else if (resultArrayNum == 2) {
+			finalResult = resultArray[0] + "以及" + resultArray[1];
+		} else if (resultArrayNum > 2) {
+			for (i = 0; i < resultArray.length; i++) {
+				if (i < resultArray.length -2) {
+					finalResult += resultArray[i] + "、";
+				} else if (i == resultArray.length -2) {
+					finalResult += resultArray[i] + "，以及";
+				} else {
+					finalResult += resultArray[i];
+				}
+				
+			}
+		}
+		
+		if(selectedStep1Str !='' || resultArrayNum >0) {
+			$('#final').val(initStr + selectedStep1Str + finalResult);
+			
+			$('#sendBtn').attr('class','btn btn-info');
+		} else {
+			alert("請點選相關描述!");
+		}
 		
 	})
 
