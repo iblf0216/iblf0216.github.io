@@ -36,7 +36,8 @@
 </style>
 <body>
 
-<h4>質性描述產生器  Demo</h4>
+<div style="font-size: 30px; text-align:center;">質性描述產生器  Demo</div>
+<br><br>
 
 <div class="row">
 	<div class="col-md-1"></div>
@@ -204,7 +205,14 @@ $(document).ready(function(){
 	
 	
 	$('#generate').on('click', function(){
-		var initStr = "個案具有嚴重的正性症狀，包含 : ";
+		var name = "個案";
+		if ((Math.random() < 0.33)) {
+			name = "病患";
+		} else if ((Math.random() > 0.66)) {
+			name = "患者"
+		}
+		
+		var initStr = name + "具有嚴重的正性症狀，包含 : ";
 		
 		var finalResult = '';
 		var resultArray = [];
