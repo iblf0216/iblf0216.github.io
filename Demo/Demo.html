@@ -31,18 +31,26 @@
 </head>
 <style type="text/css">
 	.panel-title-font-size {
-		font-size: 25px;
+		font-size: 20px;
 	}
 </style>
 <body>
 
 <div style="font-size: 30px; text-align:center;">質性描述產生器  Demo</div>
-<br><br>
+<br>
 
 <div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-8">
+	<div class="col-md-2"></div>
+	<div class="col-md-8" style="margin:30px;">
+	
+	  <ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#home">正性症狀</a></li>
+		<li><a data-toggle="tab" href="#menu1">其他</a></li>
+	  </ul><br>
 
+	  <div class="tab-content">
+		<div id="home" class="tab-pane fade in active">
+		  
 		<div class="panel panel-primary">
 		  <div class="panel-heading">
 		    <h3 class="panel-title panel-title-font-size">幻聽、幻覺</h3>
@@ -52,7 +60,7 @@
 		  </div>
 		</div>
 
-<br>
+
 
 		<div class="panel panel-success">
 		  <div class="panel-heading">
@@ -67,7 +75,7 @@
 		  </div>
 		</div>
 
-<br>		
+	
 	
 		<div class="panel panel-danger">
 		  <div class="panel-heading">
@@ -87,7 +95,7 @@
 		  </div>
 		</div>
 
-<br>
+
 
 		<div class="panel panel-info">
 		  <div class="panel-heading">
@@ -104,7 +112,7 @@
 		  </div>
 		</div>
 
-<br>
+
 
 		<div class="panel panel-warning">
 		  <div class="panel-heading">
@@ -119,16 +127,41 @@
 		  	<button type="button" class="btn btn-default">自殺傾向</button>
 		  </div>
 		</div>
-
-	</div>
-	
-	
-	
-
-	<div class="col-md-3">		
-<!-- 		<input style="width:20px;" type="checkbox" checked data-toggle="toggle" data-on="行為混亂缺乏條理" data-off="行為混亂缺乏條理" data-onstyle="success" data-offstyle="default"> -->
+		</div>
 		
-		<div class="form-group" style="width:90%">
+		
+		<div id="menu1" class="tab-pane fade">
+		  
+		  
+			<div class="panel panel-success">
+			  <div class="panel-heading">
+				<h3 class="panel-title panel-title-font-size">負性症狀</h3>
+			  </div>
+			  <div class="panel-body">
+				<button type="button" class="btn btn-default">反應變慢</button>
+				<button type="button" class="btn btn-default">智力下降</button>
+				<button type="button" class="btn btn-default">動機減弱</button>
+				<button type="button" class="btn btn-default">懶散</button>
+				<button type="button" class="btn btn-default">缺乏表情</button>
+				<button type="button" class="btn btn-default">缺乏社交技巧</button>
+			  </div>
+			</div>
+		</div>
+
+	  </div>
+	  
+	</div>
+
+	<div class="col-md-2">		
+
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8" style="margin:30px;">
+			
+		<div class="form-group" style="width:100%">
 	      <label>具體描述</label>
 	      <button id="generate" type="button" class="btn btn-default">產生暫存描述</button>
 	      <button id="reset" type="button"  onclick="javascript:window.location.reload();" class="btn btn-default">重設</button>
@@ -138,7 +171,6 @@
 	    </div>
     </div>
 </div>
-
 
 <!-- Trigger the modal with a button -->
 
@@ -151,7 +183,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title" style="font-size: 24px;">病歷簡述</h4>
+        <h4 class="modal-title" style="font-size: 24px;">質性描述</h4>
       </div>
       <div class="modal-body" style="font-size: 30px;">
         <p></p>
@@ -211,12 +243,13 @@ $(document).ready(function(){
 		}
 		
 		var initStr = name + "具有嚴重的正性症狀，包含 : ";
+		var initStr2 = "而" + name + "也具有輕微的負性症狀，包含 : ";
 		
 		var finalResult = '';
 		var resultArray = [];
 		
 		// step 1  幻聽、幻覺
-		var selectedStep1 = $('.panel-primary').find('.btn-primary');
+		var selectedStep1 = $('#home .panel-primary').find('.btn-primary');
 		var selectedStep1Str = "";
 		
 		if (selectedStep1.length > 0) {
@@ -228,7 +261,7 @@ $(document).ready(function(){
 
 			
 		// step 2 妄想
-		var selectedStep2 = $('.panel-success').find('.btn-success');
+		var selectedStep2 = $('#home .panel-success').find('.btn-success');
 		var selectedStep2Str = "";
 		
 		var selectedStep2Num = selectedStep2.length;
@@ -438,7 +471,58 @@ $(document).ready(function(){
 			resultArray.push("行為障礙（" + selectedStep5Str + "）");
 		}
 	
+
+
+		// step 6 負性症狀
+		var selectedStep6 = $('#menu1 .panel-success').find('.btn-success');
+		var selectedStep6Str = "";
 		
+		var selectedStep6Num = selectedStep6.length;
+		
+		var selectedStep6Array = [];
+		selectedStep6.each(function( index ) {
+			console.log( index + ": " + $( this ).text() );
+			  
+			selectedStep6Array.push($( this ).text());
+		});
+		
+		console.log("selectedStep6Array");
+		console.log(selectedStep6Array);
+		
+		if (selectedStep6Num < 0) {
+			//donothing
+		} else if (selectedStep6Num == 1) {
+			
+			selectedStep6Str =initStr2 + selectedStep6Array[0];
+			
+		} else if (selectedStep6Num == 2) {
+			
+			selectedStep6Str = initStr2 + selectedStep6Array[0]
+			+ ((Math.random() > 0.5) ? "以及" : "與") 
+			+ selectedStep6Array[1];
+
+		} else if (selectedStep6Num > 2) {
+			
+			for (i = 0; i < selectedStep6Array.length; i++) {
+				console.log("i = " + i);
+				if (i < selectedStep6Array.length -2) {
+					selectedStep6Str += selectedStep6Array[i] + "、";
+				} else if (i == selectedStep6Array.length -2) {
+					selectedStep6Str += selectedStep6Array[i] + ((Math.random() > 0.5) ? "以及" : "與");
+				} else {
+					selectedStep6Str += selectedStep6Array[i];
+				}
+				
+			}
+			
+			selectedStep6Str = initStr2 + selectedStep6Str;
+			
+		}
+		
+		console.log("step6 : " + selectedStep6Str);
+
+
+	
 		//===========================================================
 		
 			
@@ -463,8 +547,8 @@ $(document).ready(function(){
 			}
 		}
 		
-		if(selectedStep1Str !='' || resultArrayNum >0) {
-			$('#final').val(initStr + selectedStep1Str + finalResult);
+		if(selectedStep1Str !='' || resultArrayNum >0 || selectedStep6Str !='') {
+			$('#final').val(initStr + selectedStep1Str + finalResult + "。" + selectedStep6Str);
 			
 			$('#sendBtn').attr('class','btn btn-info');
 		} else {
@@ -473,7 +557,7 @@ $(document).ready(function(){
 		
 	})
 
-
+ 
 });
 </script>
 </html>
